@@ -12,8 +12,7 @@ const checkChoice = (choice) => {
       return "scissors";
       break;
     default:
-      return "Please write carefully";
-      break;
+      window.location.reload();
   }
 };
 
@@ -26,7 +25,15 @@ const getHumanChoice = () => {
   const choice = prompt(
     "Enter choices between 'rock'/'paper'/'scissors' :"
   ).toLocaleLowerCase();
-  return checkChoice(choice === "rock" ? 0 : choice === "paper" ? 1 : 2);
+  return checkChoice(
+    choice === "rock"
+      ? 0
+      : choice === "paper"
+      ? 1
+      : choice === "scissors"
+      ? 2
+      : undefined
+  );
 };
 
 function playRound(humanChoice, computerChoice) {
@@ -38,18 +45,28 @@ function playRound(humanChoice, computerChoice) {
     humanScore++;
   }
 }
+const humanSelection = getHumanChoice();
+const computerSelection = getComputerChoice();
 
 const playGame = () => {
   for (let i = 0; i < 5; i++) {
-    playRound(getHumanChoice(), getComputerChoice());
+    if (humanSelection !== undefined) {
+      playRound(getHumanChoice(), getComputerChoice());
+    } else {
+      break;
+    }
   }
 };
 playGame();
 
-if (computerScore > humanScore) {
-  console.log(`You lose!`);
-} else {
-  console.log("You won!");
-}
-
-console.log(`Scores: [Human: ${humanScore}, Computer: ${computerScore}]`);
+const getWinner = () => {
+  if (computerScore > humanScore) {
+    console.log(`Final Round: You lose!`);
+  } else if (computerScore < humanScore) {
+    console.log("Final Round: You won");
+  } else {
+    console.log("Final Round: Draw!");
+  }
+  alert(`Scores: [Human: ${humanScore}, Computer: ${computerScore}]`);
+};
+humanSelection !== undefined && getWinner();

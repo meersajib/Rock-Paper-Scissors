@@ -61,12 +61,14 @@ playGame();
 
 const getWinner = () => {
   if (computerScore > humanScore) {
-    console.log(`Final Round: You lose!`);
+    alert(`Final Round: You lose!`);
   } else if (computerScore < humanScore) {
-    console.log("Final Round: You won");
+    alert("Final Round: You won");
   } else {
-    console.log("Final Round: Draw!");
+    alert("Final Round: Draw!");
   }
-  alert(`Scores: [Human: ${humanScore}, Computer: ${computerScore}]`);
+  setTimeout(() => {
+    alert(`Scores: [Human: ${humanScore}, Computer: ${computerScore}]`);
+  }, 500);
 };
 humanSelection !== undefined && getWinner();
